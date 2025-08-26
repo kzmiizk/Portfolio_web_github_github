@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moact - UIデザイン詳細 | Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --font-size: 14px;
+            --background: #ffffff;
+            --foreground: oklch(0.145 0 0);
+            --card: #ffffff;
+            --card-foreground: oklch(0.145 0 0);
+            --popover: oklch(1 0 0);
+            --popover-foreground: oklch(0.145 0 0);
+            --primary: #030213;
+            --primary-foreground: oklch(1 0 0);
+            --secondary: oklch(0.95 0.0058 264.53);
+            --secondary-foreground: #030213;
+            --muted: #ececf0;
+            --muted-foreground: #717182;
+            --accent: #e9ebef;
+            --accent-foreground: #030213;
+            --destructive: #d4183d;
+            --destructive-foreground: #ffffff;
+            --border: rgba(0, 0, 0, 0.1);
+            --input: transparent;
+            --input-background: #f3f3f5;
+            --switch-background: #cbced4;
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --ring: oklch(0.708 0 0);
+            --radius: 0.625rem;
+        }
+
+        .dark {
+            --background: oklch(0.145 0 0);
+            --foreground: oklch(0.985 0 0);
+            --card: oklch(0.145 0 0);
+            --card-foreground: oklch(0.985 0 0);
+            --popover: oklch(0.145 0 0);
+            --popover-foreground: oklch(0.985 0 0);
+            --primary: oklch(0.985 0 0);
+            --primary-foreground: oklch(0.205 0 0);
+            --secondary: oklch(0.269 0 0);
+            --secondary-foreground: oklch(0.985 0 0);
+            --muted: oklch(0.269 0 0);
+            --muted-foreground: oklch(0.708 0 0);
+            --accent: oklch(0.269 0 0);
+            --accent-foreground: oklch(0.985 0 0);
+            --destructive: oklch(0.396 0.141 25.723);
+            --destructive-foreground: oklch(0.637 0.237 25.331);
+            --border: oklch(0.269 0 0);
+            --input: oklch(0.269 0 0);
+            --ring: oklch(0.439 0 0);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-size: var(--font-size);
+        }
+
+        .bg-background { background-color: var(--background); }
+        .text-foreground { color: var(--foreground); }
+        .bg-muted { background-color: var(--muted); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .bg-card { background-color: var(--card); }
+        .text-card-foreground { color: var(--card-foreground); }
+        .border-border { border-color: var(--border); }
+
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: calc(var(--radius) - 2px);
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .badge-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        /* Card styles */
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            color: var(--card-foreground);
+            border-radius: var(--radius);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            padding-bottom: 0;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1.75rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            padding-top: 0;
+        }
+
+        /* Floating Navigation Buttons */
+        .floating-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 40;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .floating-nav:hover {
+            background-color: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .floating-nav.prev {
+            left: 20px;
+        }
+
+        .floating-nav.next {
+            right: 20px;
+        }
+
+        .floating-nav svg {
+            width: 20px;
+            height: 20px;
+            color: var(--foreground);
+        }
+
+        /* Transition Pages Grid */
+        .transition-pages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .transition-page-card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .transition-page-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .transition-page-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .transition-page-content {
+            padding: 1rem;
+        }
+
+        .transition-page-title {
+            font-size: 1rem;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .transition-page-description {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            line-height: 1.4;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: auto;
+            height: auto;
+            max-width: 90vw;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-content.large {
+            max-width: 95vw;
+        }
+
+        .modal-image {
+            width: auto;
+            height: auto;
+            max-width: 90vw;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .modal-image.large {
+            max-width: 95vw;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            user-select: none;
+        }
+
+        .modal-close:hover {
+            opacity: 0.7;
+        }
+
+        /* Tag Styles */
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            border-radius: 0.5rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        /* Clickable images */
+        .clickable-image {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .clickable-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .transition-pages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-nav {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .floating-nav.prev {
+                left: 10px;
+            }
+            
+            .floating-nav.next {
+                right: 10px;
+            }
+
+            .modal-close {
+                font-size: 30px;
+                top: 15px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-background text-foreground">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html#ui-design" class="text-muted-foreground hover:text-foreground transition-colors">
+                        ← 戻る
+                    </a>
+                    <h1 class="text-xl font-medium">Moact</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../../index.html#about" class="text-muted-foreground hover:text-foreground transition-colors">About</a>
+                    <a href="../../index.html#skills" class="text-muted-foreground hover:text-foreground transition-colors">Skills</a>
+                    <a href="../../index.html#works" class="text-muted-foreground hover:text-foreground transition-colors">Works</a>
+                    <a href="../../index.html#contact" class="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Project Header -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold mb-4">Moact</h1>
+            <p class="text-xl text-muted-foreground leading-relaxed">
+                インタラクティブなモバイルアプリのUIデザイン。ユーザーエンゲージメントを重視し、
+                直感的で魅力的な操作体験を提供するアプリとして設計しました。
+            </p>
+        </div>
+
+        <!-- Main Project Image -->
+        <div class="image-container mb-12">
+            <img src="../../assets/images/game-design/thum1_ui_003_Moact.webp" alt="Moact UIデザイン" class="w-full h-auto rounded-lg shadow-2xl">
+        </div>
+
+        <!-- Technologies & Tools -->
+        <div class="card mb-12">
+            <div class="card-content">
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
+                        <!-- Design Tools -->
+                        <div class="flex flex-col items-start">
+                            <h3 class="font-medium mb-3 text-foreground">デザインツール</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">Figma</span>
+                                <span class="tag">Illustrator</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Production Scope -->
+                        <div class="flex flex-col items-start">
+                            <h3 class="font-medium mb-3 text-foreground">制作範囲</h3>
+                            <div class="space-y-2">
+                                <div class="flex gap-2">
+                                    <span class="tag">ロゴデザイン</span>
+                                    <span class="tag">UIデザイン</span>
+                                    <span class="tag">キャラクターデザイン</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="tag">プロトタイピング</span>
+                                    <span class="tag">デザインシステム</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UI Design Images Section -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">UIデザイン画像</h2>
+            <div class="grid grid-cols-1 gap-6">
+                <!-- UI Design Image 1 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_01.webp" alt="Moact UI Design 1" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 2 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_02.webp" alt="Moact UI Design 2" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 3 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_03.webp" alt="Moact UI Design 3" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 4 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_04.webp" alt="Moact UI Design 4" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 5 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_05.webp" alt="Moact UI Design 5" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 6 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_06.webp" alt="Moact UI Design 6" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 7 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_07.webp" alt="Moact UI Design 7" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+
+                <!-- UI Design Image 8 -->
+                <div class="image-container">
+                    <img src="../../assets/images/ui-design/moact/UI_design_moact_08.webp" alt="Moact UI Design 8" class="w-full h-auto rounded-lg shadow-lg" ">
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Button -->
+        <div class="flex justify-center pt-8 border-t border-border">
+            <button onclick="window.location.href='../../index.html#ui-design'" class="inline-flex items-center px-6 py-3 bg-white text-black border-2 border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                ホームに戻る
+            </button>
+        </div>
+    </main>
+
+    <!-- Floating Navigation Buttons -->
+    <button class="floating-nav prev" onclick="window.location.href='stickey-ui-detail.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
+    
+    <button class="floating-nav next" onclick="window.location.href='./yggj-portal-ui-detail.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+    </button>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalImage" class="modal-image">
+        </div>
+    </div>
+
+    <script>
+        function openModal(imageSrc, imageAlt, isLarge = false) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalContent = modalImg.parentElement;
+            
+            modal.classList.add('active');
+            modalImg.src=" = imageSrc;"
+            modalImg.alt = imageAlt;
+            
+            // Add or remove large class based on parameter
+            if (isLarge) {
+                modalContent.classList.add('large');
+                modalImg.classList.add('large');
+            } else {
+                modalContent.classList.remove('large');
+                modalImg.classList.remove('large');
+            }
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalContent = modalImg.parentElement;
+            
+            modal.classList.remove('active');
+            modalContent.classList.remove('large');
+            modalImg.classList.remove('large');
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

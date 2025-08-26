@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stickey - Webデザイン詳細 | Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --font-size: 14px;
+            --background: #ffffff;
+            --foreground: oklch(0.145 0 0);
+            --card: #ffffff;
+            --card-foreground: oklch(0.145 0 0);
+            --popover: oklch(1 0 0);
+            --popover-foreground: oklch(0.145 0 0);
+            --primary: #030213;
+            --primary-foreground: oklch(1 0 0);
+            --secondary: oklch(0.95 0.0058 264.53);
+            --secondary-foreground: #030213;
+            --muted: #ececf0;
+            --muted-foreground: #717182;
+            --accent: #e9ebef;
+            --accent-foreground: #030213;
+            --destructive: #d4183d;
+            --destructive-foreground: #ffffff;
+            --border: rgba(0, 0, 0, 0.1);
+            --input: transparent;
+            --input-background: #f3f3f5;
+            --switch-background: #cbced4;
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --ring: oklch(0.708 0 0);
+            --radius: 0.625rem;
+        }
+
+        .dark {
+            --background: oklch(0.145 0 0);
+            --foreground: oklch(0.985 0 0);
+            --card: oklch(0.145 0 0);
+            --card-foreground: oklch(0.985 0 0);
+            --popover: oklch(0.145 0 0);
+            --popover-foreground: oklch(0.985 0 0);
+            --primary: oklch(0.985 0 0);
+            --primary-foreground: oklch(0.205 0 0);
+            --secondary: oklch(0.269 0 0);
+            --secondary-foreground: oklch(0.985 0 0);
+            --muted: oklch(0.269 0 0);
+            --muted-foreground: oklch(0.708 0 0);
+            --accent: oklch(0.269 0 0);
+            --accent-foreground: oklch(0.985 0 0);
+            --destructive: oklch(0.396 0.141 25.723);
+            --destructive-foreground: oklch(0.637 0.237 25.331);
+            --border: oklch(0.269 0 0);
+            --input: oklch(0.269 0 0);
+            --ring: oklch(0.439 0 0);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-size: var(--font-size);
+        }
+
+        .bg-background { background-color: var(--background); }
+        .text-foreground { color: var(--foreground); }
+        .bg-muted { background-color: var(--muted); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .bg-card { background-color: var(--card); }
+        .text-card-foreground { color: var(--card-foreground); }
+        .border-border { border-color: var(--border); }
+
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: calc(var(--radius) - 2px);
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .badge-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        /* Card styles */
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            color: var(--card-foreground);
+            border-radius: var(--radius);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            padding-bottom: 0;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            line-height: 1.25;
+            margin-top: 0.375rem;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Image container */
+        .image-container {
+            border-radius: var(--radius);
+        }
+
+        /* Floating navigation buttons */
+        .floating-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .floating-nav.prev {
+            left: 20px;
+        }
+
+        .floating-nav.next {
+            right: 20px;
+        }
+
+        .floating-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'var(--background)',
+                        foreground: 'var(--foreground)',
+                        card: 'var(--card)',
+                        'card-foreground': 'var(--card-foreground)',
+                        muted: 'var(--muted)',
+                        'muted-foreground': 'var(--muted-foreground)',
+                        primary: 'var(--primary)',
+                        'primary-foreground': 'var(--primary-foreground)',
+                        secondary: 'var(--secondary)',
+                        'secondary-foreground': 'var(--secondary-foreground)',
+                        border: 'var(--border)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-background text-foreground">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html#web-design" class="text-muted-foreground hover:text-foreground transition-colors">
+                        ← 戻る
+                    </a>
+                    <h1 class="text-xl font-medium">Stickey</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../../index.html#about" class="text-muted-foreground hover:text-foreground transition-colors">About</a>
+                    <a href="../../index.html#skills" class="text-muted-foreground hover:text-foreground transition-colors">Skills</a>
+                    <a href="../../index.html#works" class="text-muted-foreground hover:text-foreground transition-colors">Works</a>
+                    <a href="../../index.html#contact" class="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Project Header -->
+        <div class="mb-12">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="badge badge-secondary">Webデザイン</span>
+                <span class="badge badge-secondary">UI/UX</span>
+                <span class="badge badge-secondary">デジタルウォレット</span>
+            </div>
+            <h1 class="text-4xl font-bold mb-4">Stickey</h1>
+            <p class="text-xl text-muted-foreground leading-relaxed">
+                デジタルウォレットアプリのWebサイトデザイン。シンプルで直感的なインターフェースと、
+                セキュリティを重視したデザインで、ユーザーが安心して利用できるプラットフォームとして設計しました。
+            </p>
+        </div>
+
+        <!-- Project Image -->
+        <div class="image-container mb-12">
+            <img src="../../assets/images/web-design/Stickey_HP.webp" alt="Stickey Webデザイン" class="w-full h-auto rounded-lg shadow-2xl">
+        </div>
+
+        <!-- Technologies & Tools -->
+        <div class="card mb-12">
+            <div class="card-header">
+                <h2 class="card-title">使用技術・ツール</h2>
+            </div>
+            <div class="card-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-medium mb-2">デザインツール</h3>
+                        <p class="text-muted-foreground">Figma, Adobe XD, Illustrator</p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium mb-2">プロトタイピング</h3>
+                        <p class="text-muted-foreground">Figma, InVision</p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium mb-2">コラボレーション</h3>
+                        <p class="text-muted-foreground">Slack, Notion, GitHub</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="card mb-12">
+            <div class="card-header">
+                <h2 class="card-title">プロジェクト詳細</h2>
+            </div>
+            <div class="card-content">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-medium mb-2">プロジェクト概要</h3>
+                        <p class="text-muted-foreground">
+                            Stickeyは、ユーザーが安全で簡単にデジタル決済を行えるデジタルウォレットアプリです。
+                            このプロジェクトでは、WebサイトのUI/UXデザインを担当し、ブランドの信頼性と使いやすさを両立させました。
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium mb-2">デザインの特徴</h3>
+                        <p class="text-muted-foreground">
+                            ライムグリーンとブルーを基調とした明るく親しみやすいカラーパレットを使用し、
+                            プッシュピンをモチーフにしたユニークなブランドアイデンティティを表現しています。
+                            シンプルで直感的なナビゲーションにより、ユーザーが迷うことなくサービスを利用できるよう設計しました。
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium mb-2">技術的な工夫</h3>
+                        <p class="text-muted-foreground">
+                            レスポンシブデザインを採用し、あらゆるデバイスで最適な表示を実現。
+                            アクセシビリティにも配慮し、色覚特性の異なるユーザーにも配慮したデザインにしています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Button -->
+        <div class="flex justify-center pt-8 border-t border-border">
+            <a href="../../index.html#web-design" class="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                ホームに戻る
+            </a>
+        </div>
+    </main>
+
+    <!-- Floating Navigation Buttons -->
+    <button class="floating-nav prev" onclick="window.location.href='../../index.html#web-design'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
+    
+    <button class="floating-nav next" onclick="window.location.href='neo-canvas-detail.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+    </button>
+</body>
+</html>

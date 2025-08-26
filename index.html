@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --font-size: 14px;
+            --background: #ffffff;
+            --foreground: oklch(0.145 0 0);
+            --card: #ffffff;
+            --card-foreground: oklch(0.145 0 0);
+            --popover: oklch(1 0 0);
+            --popover-foreground: oklch(0.145 0 0);
+            --primary: #030213;
+            --primary-foreground: oklch(1 0 0);
+            --secondary: oklch(0.95 0.0058 264.53);
+            --secondary-foreground: #030213;
+            --muted: #ececf0;
+            --muted-foreground: #717182;
+            --accent: #e9ebef;
+            --accent-foreground: #030213;
+            --destructive: #d4183d;
+            --destructive-foreground: #ffffff;
+            --border: rgba(0, 0, 0, 0.1);
+            --input: transparent;
+            --input-background: #f3f3f5;
+            --switch-background: #cbced4;
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --ring: oklch(0.708 0 0);
+            --radius: 0.625rem;
+        }
+
+        .dark {
+            --background: oklch(0.145 0 0);
+            --foreground: oklch(0.985 0 0);
+            --card: oklch(0.145 0 0);
+            --card-foreground: oklch(0.985 0 0);
+            --popover: oklch(0.145 0 0);
+            --popover-foreground: oklch(0.985 0 0);
+            --primary: oklch(0.985 0 0);
+            --primary-foreground: oklch(0.205 0 0);
+            --secondary: oklch(0.269 0 0);
+            --secondary-foreground: oklch(0.985 0 0);
+            --muted: oklch(0.269 0 0);
+            --muted-foreground: oklch(0.708 0 0);
+            --accent: oklch(0.269 0 0);
+            --accent-foreground: oklch(0.985 0 0);
+            --destructive: oklch(0.396 0.141 25.723);
+            --destructive-foreground: oklch(0.637 0.237 25.331);
+            --border: oklch(0.269 0 0);
+            --input: oklch(0.269 0 0);
+            --ring: oklch(0.439 0 0);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-size: var(--font-size);
+        }
+
+        .bg-background { background-color: var(--background); }
+        .text-foreground { color: var(--foreground); }
+        .bg-muted { background-color: var(--muted); }
+        .text-muted-foreground { color: var(--muted-foreground); }
+        .bg-card { background-color: var(--card); }
+        .text-card-foreground { color: var(--card-foreground); }
+        .border-border { border-color: var(--border); }
+
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: calc(var(--radius) - 2px);
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .badge-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        .badge-outline {
+            border: 1px solid var(--border);
+            color: var(--foreground);
+        }
+
+        /* Card styles */
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            color: var(--card-foreground);
+            border-radius: var(--radius);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            padding-bottom: 0;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            line-height: 1.25;
+            margin-top: 0.375rem;
+        }
+
+        /* Portfolio item hover effects */
+        .portfolio-item {
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        /* New portfolio card styles */
+        .portfolio-card {
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Custom backdrop blur for tags */
+        .tag-backdrop {
+            backdrop-filter: blur(8px);
+        }
+
+        /* Video hover effects */
+        .video-hover {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Separator */
+        .separator {
+            height: 1px;
+            background-color: var(--border);
+            width: 100%;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'var(--background)',
+                        foreground: 'var(--foreground)',
+                        card: 'var(--card)',
+                        'card-foreground': 'var(--card-foreground)',
+                        muted: 'var(--muted)',
+                        'muted-foreground': 'var(--muted-foreground)',
+                        primary: 'var(--primary)',
+                        'primary-foreground': 'var(--primary-foreground)',
+                        secondary: 'var(--secondary)',
+                        'secondary-foreground': 'var(--secondary-foreground)',
+                        border: 'var(--border)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script>
+        // 動画ホバー効果の制御
+        document.addEventListener('DOMContentLoaded', function() {
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+            
+            portfolioCards.forEach(card => {
+                const video = card.querySelector('video');
+                if (video) {
+                    // ホバー開始時
+                    card.addEventListener('mouseenter', function() {
+                        video.currentTime = 0; // 動画を最初から再生
+                        video.play().catch(e => console.log('動画再生エラー:', e));
+                    });
+                    
+                    // ホバー終了時
+                    card.addEventListener('mouseleave', function() {
+                        video.pause();
+                        video.currentTime = 0; // 動画を最初に戻す
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        // 動画モーダル機能
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalIndex = document.getElementById('modalIndex');
+            const closeModal = document.getElementById('closeModal');
+            const prevVideo = document.getElementById('prevVideo');
+            const nextVideo = document.getElementById('nextVideo');
+            
+            // 動画データ
+            const videoData = [
+                {
+                    title: "Neo Canvas",
+                    description: "次世代のAI駆動型アニメーション制作プラットフォームです。従来のアニメ制作プロセスを革新し、AIの力を活用して新たな可能性を切り開くサービスプロモーション動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_001_NeoCanvas_compressed.mp4",
+                    category: "プロモーション動画"
+                },
+                {
+                    title: "Gabee Town",
+                    description: "YGG Japan運営の日本初web3ブロックチェーンゲーム特化のプラットフォーム。初心者でも効率よくブロックチェーンゲームを始められるように厳選されたゲーム情報を提供するメディアサービスのティザー動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_002_Gabee_compressed.mp4",
+                    category: "ティザー動画"
+                },
+                {
+                    title: "Aidol School",
+                    description: "インフルエンサーくりえみ氏プロデュースのAIアイドル生成講座。最先端のAI技術を駆使して人物生成からプロモーションまで一貫して学べる6ヶ月間の革新的な実践プログラムのティザー動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_003_school_compressed.mp4",
+                    category: "ティザー動画"
+                },
+                {
+                    title: "YGGJ TGS",
+                    description: "Tokyo game showのイベントブース内で放映されたオープニング動画。会場ブースやポスター広告チラシに至るまでのイメージ設計やトーン&マナーの設計",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_004_Yggj_tgs_compressed.mp4",
+                    category: "イベントOP動画"
+                },
+                {
+                    title: "Kingdom",
+                    description: "著名アーケードゲーム『三国志大戦』の世界観を継承した新作ブロックチェーンゲーム『魁 三国志大戦 -Battle of Three Kingdoms-』のゲームプレイ紹介動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_005_kingdom_compressed.mp4",
+                    category: "ゲーム紹介動画"
+                },
+                {
+                    title: "2B4U",
+                    description: "AIキャラクターやバーチャルヒューマンを開発するクリエイティブスタジオです。「あなたのために（To Be For You）」という理念のもと、企業のデジタル戦略AI技術サポートを提供する紹介動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_006_2B4U_compressed.mp4",
+                    category: "紹介動画"
+                },
+                {
+                    title: "Launchpad",
+                    description: "YGGJ プラットフォームで展開するNFTローンチパッドサービスです。Generativeにガチャ要素を持たせ、NFT発行時の期待感を向上する演出を加えました。",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_007_launchpad_compressed.mp4",
+                    category: "ガチャ演出動画"
+                },
+                {
+                    title: "NFT Lyrics",
+                    description: "HIPHOP battleのNFT。HIPHOPバトルUMBでの名バトルをリリックムービーと共にNFT化したアート型NFT",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_008_lyrics_compressed.mp4",
+                    category: "NFT動画"
+                },
+                {
+                    title: "Qocoa",
+                    description: "企業の認知拡大・売上向上を目的とした戦略立案から実行までをサポートする総合マーケティング会社のLPサイトで作成したヒーローセクションでのTOP動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_009_Qocoa_compressed.mp4",
+                    category: "web動画"
+                },
+                {
+                    title: "X-Recruit",
+                    description: "「PeopleX AI面接」は、AIが候補者と自然な対話を行い、面接の効率化と候補者体験の向上を両立するサービス。利用手順を説明した紹介動画。",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_010_x-recruit_compressed.mp4",
+                    category: "紹介動画"
+                },
+                {
+                    title: "Gacha",
+                    description: "トレーディングカードゲームのオリパでのカード入手演出動画。期待度に合わせた組み合わせで10本以上のバリエーション動画を作成。",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_plus001_gacha_compressed.mp4",
+                    category: "ガチャ演出動画"
+                },
+                {
+                    title: "Mov Plactis",
+                    description: "モーション動画講義のプラクティス動画。目を惹く演出や表現方法を学んでもらうための実践動画集の一例",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_plus001_practice_compressed.mp4",
+                    category: "講義用動画"
+                },
+                {
+                    title: "Gabechan",
+                    description: "YGGJ プラットフォーム内にあるギャビチャンネルという初心者用web3入門動画コンテンツの紹介動画。キャラクター作成やモーションなどを使用した動画",
+                    videoSrc: "assets/videos/mov/mov/compressed/thum1_mov1_plus001_gabechan_compressed.mp4",
+                    category: "youtube動画"
+                }
+            ];
+            
+            let currentVideoIndex = 0;
+            
+            // カードクリック時のモーダル表示
+            const videoCards = document.querySelectorAll('[data-video-index]');
+            videoCards.forEach((card, index) => {
+                card.addEventListener('click', function() {
+                    currentVideoIndex = index;
+                    showVideo(currentVideoIndex);
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // モーダルを閉じる
+            closeModal.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                modalVideo.pause();
+            });
+            
+            // 背景クリックでモーダルを閉じる
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                    modalVideo.pause();
+                }
+            });
+            
+            // 前の動画
+            prevVideo.addEventListener('click', function() {
+                currentVideoIndex = (currentVideoIndex - 1 + videoData.length) % videoData.length;
+                showVideo(currentVideoIndex);
+            });
+            
+            // 次の動画
+            nextVideo.addEventListener('click', function() {
+                currentVideoIndex = (currentVideoIndex + 1) % videoData.length;
+                showVideo(currentVideoIndex);
+            });
+            
+            // 動画表示関数
+            function showVideo(index) {
+                const video = videoData[index];
+                modalVideo.src = video.videoSrc;
+                modalTitle.textContent = video.title;
+                modalDescription.textContent = video.description;
+                modalCategory.textContent = video.category;
+                modalIndex.textContent = `${index + 1} / ${videoData.length}`;
+                
+                // 前後ボタンの表示/非表示
+                prevVideo.style.display = videoData.length > 1 ? 'block' : 'none';
+                nextVideo.style.display = videoData.length > 1 ? 'block' : 'none';
+                
+                // 動画を最初から再生
+                modalVideo.currentTime = 0;
+                
+                // 動画の読み込み完了後に自動再生
+                modalVideo.addEventListener('loadeddata', function autoPlay() {
+                    modalVideo.play().catch(e => console.log('自動再生エラー:', e));
+                    modalVideo.removeEventListener('loadeddata', autoPlay);
+                }, { once: true });
+            }
+            
+            // ESCキーでモーダルを閉じる
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                    modalVideo.pause();
+                }
+            });
+        });
+    </script>
+</head>
+<body class="min-h-screen bg-background text-foreground">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <h1 class="text-xl font-medium">Portfolio</h1>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-muted-foreground hover:text-foreground transition-colors">About</a>
+                    <a href="#skills" class="text-muted-foreground hover:text-foreground transition-colors">Skills</a>
+                    <a href="#works" class="text-muted-foreground hover:text-foreground transition-colors">Works</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl mb-8">Designer Portfolio</h1>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+                動画、UIデザイン、Webデザインなど幅広いデザイン領域で活動するクリエイターです。従来のデザインツールから最新のAIツールまで駆使し、多様なプロジェクトに取り組んでいます。
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="badge badge-secondary">デザイナー</span>
+                <span class="badge badge-secondary">映像クリエイター</span>
+                <span class="badge badge-secondary">UI/UXデザイナー</span>
+                <span class="badge badge-secondary">専門学校講師</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl text-center mb-12">Skills & Tools</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">スキル & ツール</h3>
+                    <p class="card-description">クリエイティブ制作からAI活用まで、幅広いスキルセット</p>
+                </div>
+                <div class="card-content">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                        <!-- デザインツール -->
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Illustorator.webp" alt="Illustrator" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Illustrator</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Photoshop.webp" alt="Photoshop" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Photoshop</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Figma.webp" alt="Figma" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Figma</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/After Effects.webp" alt="After Effects" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">After Effects</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Blender.webp" alt="Blender" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Blender</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Premire.webp" alt="Premiere" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Premiere</span>
+                        </div>
+                        
+                        <!-- AIツール -->
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Cursor.webp" alt="Cursor" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Cursor</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/ChatGPT.webp" alt="ChatGPT" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">ChatGPT</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Claude.webp" alt="Claude" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Claude</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Gemini.webp" alt="Gemini" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Gemini</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Colab.webp" alt="Colab" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Colab</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Midojorney.webp" alt="Midjourney" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Midjourney</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Firefly.webp" alt="Firefly" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Firefly</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Genspark.webp" alt="Genspark" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Genspark</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Runway.webp" alt="Runway" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Runway</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Vercel.webp" alt="Vercel" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Vercel</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center">
+                            <img src="assets/images/icons/Studio..webp" alt="Studio" class="w-12 h-12 mb-2">
+                            <span class="text-sm font-medium">Studio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expertise Areas -->
+            <div class="card mt-8">
+                <div class="card-header">
+                    <h3 class="card-title">専門分野</h3>
+                    <p class="card-description">私の専門分野になります</p>
+                </div>
+                <div class="card-content">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
+                        <span class="badge badge-secondary w-full justify-center">UIデザイン</span>
+                        <span class="badge badge-secondary w-full justify-center">動画制作</span>
+                        <span class="badge badge-secondary w-full justify-center">Webデザイン</span>
+                        <span class="badge badge-secondary w-full justify-center">バナーデザイン</span>
+                        <span class="badge badge-secondary w-full justify-center">サムネイルデザイン</span>
+
+                        <span class="badge badge-secondary w-full justify-center">NFT</span>
+                        <span class="badge badge-secondary w-full justify-center">ゲーム</span>
+                        <span class="badge badge-secondary w-full justify-center">イベント設営</span>
+                        <span class="badge badge-secondary w-full justify-center">パチンコ・パチスロ</span>
+                        <span class="badge badge-secondary w-full justify-center">専門学校講師</span>
+                        <span class="badge badge-secondary w-full justify-center">生成AI活用</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="works" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl text-center mb-12">Works</h2>
+            
+            <!-- 動画 -->
+            <div class="mb-16">
+                <div class="mb-8">
+                    <h3 class="text-2xl mb-2">動画</h3>
+                    <p class="text-muted-foreground">映像制作・モーションデザイン作品</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                        <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="0">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_001_Neo_Canvas.webp" alt="Neo Canvas" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_001_NeoCanvas_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="1">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_002_Gabee.webp" alt="Gabee Town" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_002_Gabee_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="2">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_003_school.webp" alt="Aidol School" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_003_school_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="3">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_004_Yggj_tgs.webp" alt="YGGJ TGS" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_004_Yggj_tgs_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="4">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_005_kingdom.webp" alt="Kingdom" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_005_kingdom_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="5">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_006_2B4U.webp" alt="2B4U" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_006_2B4U_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="6">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_007_launchpad.webp" alt="Launchpad" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_007_launchpad_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="7">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_008_lyrics.webp" alt="NFT Lyrics" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_008_lyrics_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="8">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_009_Qocoa.webp" alt="Qocoa" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_009_Qocoa_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="9">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_010_x-recruit.webp" alt="X-Recruit" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_010_x-recruit_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                                        <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="10">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_011_gacha.webp" alt="Gacha" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_plus001_gacha_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="11">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_plactis.webp" alt="Mov Plactis" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_plus001_practice_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" data-video-index="12">
+                        <!-- Background with image and video -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <!-- 静止画（デフォルト表示） -->
+                            <img src="assets/images/game-design/thum1_mov_Gabechan.webp" alt="Gabechan" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0">
+                            <!-- 動画（ホバー時に表示・再生） -->
+                            <video class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" muted loop preload="metadata">
+                                <source src="assets/videos/mov/mov/compressed/thum1_mov1_plus001_gabechan_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Content overlay -->
+                            <div class="absolute inset-0 p-4 flex flex-col justify-between">
+                                
+                                
+                                
+                                
+                            </div>
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Modal -->
+                <div id="videoModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+                    <div class="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                        <!-- Close button -->
+                        <button id="closeModal" class="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-2.5 transition-all duration-200 shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                        
+                        <!-- Video container -->
+                        <div class="relative">
+                            <video id="modalVideo" class="w-full h-auto" controls>
+                                <source src="" type="video/mp4">
+                            </video>
+                            
+                            <!-- Navigation arrows -->
+                            <button id="prevVideo" class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white rounded-full p-2 transition-all duration-200 shadow-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <button id="nextVideo" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white rounded-full p-2 transition-all duration-200 shadow-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Video info -->
+                        <div class="p-6">
+                            <h3 id="modalTitle" class="text-xl font-bold mb-2 text-gray-800"></h3>
+                            <p id="modalDescription" class="text-base text-gray-600 mb-4 leading-relaxed"></p>
+                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                <span id="modalCategory">動画作品</span>
+                                <span id="modalIndex">1 / 13</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="separator mt-16"></div>
+            </div>
+
+            <!-- UIデザイン -->
+            <div id="ui-design" class="mb-16">
+                <div class="mb-8">
+                    <h3 class="text-2xl mb-2">UIデザイン</h3>
+                    <p class="text-muted-foreground">アプリケーション・Webインターフェース</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/gabee-town-ui-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/ui-design/thum1_ui_001_Gabee_town.webp" alt="Gabee Town" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/stickey-ui-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/ui-design/thum1_ui_002_Stickey.webp" alt="Stickey" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/shake-ui-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/ui-design/thum1_ui_004_Shake.webp" alt="Shake" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/yggj-portal-ui-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/ui-design/thum1_ui_005_YGGJ_portal.webp" alt="YGGJ Portal" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/moact-ui-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/ui-design/thum1_ui_003_Moact.webp" alt="Moact" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/ui-design/thum1_ui_006_Garigatmax.webp" alt="Garigatmax" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ゲーム作品セクション -->
+                <div class="mt-12 mb-8">
+                    <p class="text-muted-foreground">ゲームUIデザイン</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Game UI Design 1 - Buggy Rush -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/buggy-rush-ui-detail.html'">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/game-design/thum1_game_Buggy_rush01.webp" alt="Buggy Rush Game UI Design" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Game UI Design 2 - Brain Dots -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/brain-dots-ui-detail.html'">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/game-design/thum1_game_Brain_dots02.webp" alt="Brain Dots Game UI Design" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Game UI Design 3 - Loot Adventure -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/loot-adventure-ui-detail.html'">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/game-design/thum1_game_Loot_adventure03.webp" alt="Loot Adventure Game UI Design" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Game UI Design 4 - Avengers -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/ui-design/avengers-ui-detail.html'">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/game-design/thum1_game_Avengers04.webp" alt="Avengers Game UI Design" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="separator mt-16"></div>
+            </div>
+
+            <!-- Webデザイン -->
+            <div id="web-design" class="mb-16">
+                <div class="mb-8">
+                    <h3 class="text-2xl mb-2">Webデザイン</h3>
+                    <p class="text-muted-foreground">Webサイト・ランディングページ</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/neo-canvas-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_Neo_Canvas.webp" alt="Neo Canvas" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/gabee-town-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_gabee.webp" alt="Gabee Town" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/aidol-school-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_aidol_school.webp" alt="Aidol School" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/2b4u-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_2B4U.webp" alt="2B4U" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/bachamo-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_Bachamo.webp" alt="Bachamo" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/qocoa-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_Qocoa.webp" alt="Qocoa" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/pinyogram-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_Pinyogram.webp" alt="Pinyogram" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/kingdom-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_kingdom.webp" alt="Kingdom" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/dh-1000-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_DH-1000.webp" alt="DH-1000" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="window.location.href='pages/web-design/aibo-detail.html'">
+                        <!-- Background with image -->
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/web-design/thum1_web_aibo.webp" alt="Aibo" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            
+                            <!-- Hover overlay -->
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="separator mt-16"></div>
+            </div>
+
+            <!-- バナー・サムネイル -->
+            <div class="mb-16">
+                <div class="mb-8">
+                    <h3 class="text-2xl mb-2">バナー・サムネイル</h3>
+                    <p class="text-muted-foreground">SNS,PR TIMES,その他告知関連</p>
+                </div>
+                
+                <!-- 初期表示（3段12個） -->
+                <div id="bannerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Banner 1 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(0)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_01.webp" alt="Banner 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 2 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(1)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_02.webp" alt="Banner 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 3 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(2)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_03.webp" alt="Banner 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 4 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(3)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_04.webp" alt="Banner 4" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 5 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(4)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_05.webp" alt="Banner 5" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 6 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(5)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_06.webp" alt="Banner 6" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 7 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(6)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_07.webp" alt="Banner 7" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 8 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(7)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_08.webp" alt="Banner 8" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 9 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(8)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_09.webp" alt="Banner 9" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 10 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(9)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_10.webp" alt="Banner 10" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 11 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(10)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_11.webp" alt="Banner 11" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Banner 12 -->
+                    <div class="portfolio-card group cursor-pointer relative overflow-hidden rounded-lg" onclick="openBannerModal(11)">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="assets/images/banners/banner_12.webp" alt="Banner 12" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                            <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- もっと見るボタン -->
+                <div class="flex justify-center mt-8">
+                    <button id="showMoreBanners" onclick="toggleBannerExpansion()" class="inline-flex items-center px-6 py-3 bg-transparent text-[#D1D1D1] border border-[#D1D1D1] rounded-lg hover:bg-[#D1D1D1] hover:text-black transition-all duration-300">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                        もっと見る
+                    </button>
+                </div>
+                
+                <div class="separator mt-16"></div>
+            </div>
+
+
+
+            <!-- その他 -->
+            <div class="mb-16">
+                <div class="mb-8">
+                    <h3 class="text-2xl mb-2">その他</h3>
+                    <p class="text-muted-foreground">NFT・ゲーム・イベント設営・パチンコ/パチスロ・講師資料など</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- 1. Dancing Robots -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openDancingVideoModal()">
+                        <img src="assets/images/other/dansing_robots/thumbnail_dancing_robots.webp" alt="Dancing Robots" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 2. Gabechan -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('gabechan')">
+                        <img src="assets/images/other/Gabechan/thum1_other_Gabechan.webp" alt="Gabechan" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 3. Ring -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('ring')">
+                        <img src="assets/images/other/ring/thum1_Slot_ring.webp" alt="Ring" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 4. White Paper -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('white_paper')">
+                        <img src="assets/images/other/white_paper/thum1_other_white_paper.webp" alt="White Paper" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 5. Rium -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('rium')">
+                        <img src="assets/images/other/rium/other_rium_thumbnail.webp" alt="Rium" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 6. Logo Typography -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('logo_typography')">
+                        <img src="assets/images/other/logo_typography/logo_type_thumbnail.webp" alt="Logo Typography" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 7. Neu -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('neu')">
+                        <img src="assets/images/other/neu/other_neu_thumbnail.webp" alt="Neu" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+
+                    <!-- 8. Ivent -->
+                    <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-lg aspect-video" onclick="openOtherModal('ivent')">
+                        <img src="assets/images/other/ivent/thum1_tgs.webp" alt="Ivent" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- バナーモーダル -->
+    <div id="bannerModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative bg-black rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Close button -->
+            <button id="closeBannerModal" class="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-2.5 transition-all duration-200 shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <!-- Image container -->
+            <div class="relative">
+                <img id="modalBannerImage" class="w-full h-auto max-h-[80vh] object-contain" src="" alt="Banner">
+                
+                <!-- Navigation arrows -->
+                <button id="prevBanner" class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white rounded-full p-2 transition-all duration-200 shadow-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button id="nextBanner" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white rounded-full p-2 transition-all duration-200 shadow-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <!-- その他のセクション用モーダル -->
+    <div id="otherModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Close button -->
+            <button id="closeOtherModal" class="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-2.5 transition-all duration-200 shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <!-- Image container -->
+            <div class="relative p-6">
+                <img id="modalOtherImage" class="w-full h-auto max-h-[80vh] object-contain rounded-lg" src="" alt="Other Image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Dancing Robots動画用モーダル -->
+    <div id="dancingVideoModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative bg-black rounded-lg max-w-5xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Close button -->
+            <button id="closeDancingVideoModal" class="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-2.5 transition-all duration-200 shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <!-- Video container -->
+            <div class="relative p-6">
+                <video id="modalDancingVideo" class="w-full h-auto max-h-[80vh] object-contain rounded-lg" controls autoplay>
+                    <source src="assets/images/other/dansing_robots/nft_img_002_compressed.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 動画制御用JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // すべてのポートフォリオアイテムを取得
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            portfolioItems.forEach(item => {
+                const video = item.querySelector('video');
+                const img = item.querySelector('img');
+                
+                if (video && img) {
+                    // マウスが入った時の処理
+                    item.addEventListener('mouseenter', function() {
+                        // 動画を再生
+                        video.play().catch(e => console.log('動画再生エラー:', e));
+                        // 画像を非表示
+                        img.style.opacity = '0';
+                        // 動画を表示
+                        video.style.opacity = '1';
+                    });
+                    
+                    // マウスが出た時の処理
+                    item.addEventListener('mouseleave', function() {
+                        // 動画を一時停止
+                        video.pause();
+                        // 動画を非表示
+                        video.style.opacity = '0';
+                        // 画像を表示
+                        img.style.opacity = '1';
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- バナーモーダル制御用JavaScript -->
+    <script>
+        // バナーデータ（全35個）
+        const bannerData = [
+            { title: "Banner 1", imageSrc: "assets/images/banners/banner_01.webp" },
+            { title: "Banner 2", imageSrc: "assets/images/banners/banner_02.webp" },
+            { title: "Banner 3", imageSrc: "assets/images/banners/banner_03.webp" },
+            { title: "Banner 4", imageSrc: "assets/images/banners/banner_04.webp" },
+            { title: "Banner 5", imageSrc: "assets/images/banners/banner_05.webp" },
+            { title: "Banner 6", imageSrc: "assets/images/banners/banner_06.webp" },
+            { title: "Banner 7", imageSrc: "assets/images/banners/banner_07.webp" },
+            { title: "Banner 8", imageSrc: "assets/images/banners/banner_08.webp" },
+            { title: "Banner 9", imageSrc: "assets/images/banners/banner_09.webp" },
+            { title: "Banner 10", imageSrc: "assets/images/banners/banner_10.webp" },
+            { title: "Banner 11", imageSrc: "assets/images/banners/banner_11.webp" },
+            { title: "Banner 12", imageSrc: "assets/images/banners/banner_12.webp" },
+            { title: "Banner 13", imageSrc: "assets/images/banners/banner_13.webp" },
+            { title: "Banner 14", imageSrc: "assets/images/banners/banner_14.webp" },
+            { title: "Banner 15", imageSrc: "assets/images/banners/banner_15.webp" },
+            { title: "Banner 16", imageSrc: "assets/images/banners/banner_16.webp" },
+            { title: "Banner 17", imageSrc: "assets/images/banners/banner_17.webp" },
+            { title: "Banner 18", imageSrc: "assets/images/banners/banner_18.webp" },
+            { title: "Banner 19", imageSrc: "assets/images/banners/banner_19.webp" },
+            { title: "Banner 20", imageSrc: "assets/images/banners/banner_20.webp" },
+            { title: "Banner 21", imageSrc: "assets/images/banners/banner_21.webp" },
+            { title: "Banner 22", imageSrc: "assets/images/banners/banner_22.webp" },
+            { title: "Banner 23", imageSrc: "assets/images/banners/banner_23.webp" },
+            { title: "Banner 24", imageSrc: "assets/images/banners/banner_24.webp" },
+            { title: "Banner 25", imageSrc: "assets/images/banners/banner_25.webp" },
+            { title: "Banner 26", imageSrc: "assets/images/banners/banner_26.webp" },
+            { title: "Banner 27", imageSrc: "assets/images/banners/banner_27.webp" },
+            { title: "Banner 28", imageSrc: "assets/images/banners/banner_28.webp" },
+            { title: "Banner 29", imageSrc: "assets/images/banners/banner_29.webp" },
+            { title: "Banner 30", imageSrc: "assets/images/banners/banner_30.webp" },
+            { title: "Banner 31", imageSrc: "assets/images/banners/banner_31.webp" },
+            { title: "Banner 32", imageSrc: "assets/images/banners/banner_32.webp" },
+            { title: "Banner 33", imageSrc: "assets/images/banners/banner_33.webp" },
+            { title: "Banner 34", imageSrc: "assets/images/banners/banner_34.webp" },
+            { title: "Banner 35", imageSrc: "assets/images/banners/banner_35.webp" }
+        ];
+
+        let currentBannerIndex = 0;
+        let isExpanded = false;
+
+        // バナーモーダルを開く
+        function openBannerModal(index) {
+            currentBannerIndex = index;
+            showBanner(currentBannerIndex);
+            
+            const modal = document.getElementById('bannerModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // バナーを表示
+        function showBanner(index) {
+            const banner = bannerData[index];
+            const modalImage = document.getElementById('modalBannerImage');
+            
+            modalImage.src = banner.imageSrc;
+        }
+
+        // エクスパンド機能の切り替え
+        function toggleBannerExpansion() {
+            const grid = document.getElementById('bannerGrid');
+            const button = document.getElementById('showMoreBanners');
+            
+            if (!isExpanded) {
+                // 全バナーを表示（35個）
+                grid.innerHTML = '';
+                bannerData.forEach((banner, index) => {
+                    const bannerElement = createBannerElement(banner, index);
+                    grid.appendChild(bannerElement);
+                });
+                
+                button.innerHTML = `
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+                    </svg>
+                    閉じる
+                `;
+                isExpanded = true;
+            } else {
+                // 初期表示（12個）に戻す
+                grid.innerHTML = '';
+                bannerData.slice(0, 12).forEach((banner, index) => {
+                    const bannerElement = createBannerElement(banner, index);
+                    grid.appendChild(bannerElement);
+                });
+                
+                button.innerHTML = `
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    もっと見る
+                `;
+                isExpanded = false;
+            }
+        }
+
+        // バナー要素を作成
+        function createBannerElement(banner, index) {
+            const div = document.createElement('div');
+            div.className = 'portfolio-card group cursor-pointer relative overflow-hidden rounded-lg';
+            div.onclick = () => openBannerModal(index);
+            
+            div.innerHTML = `
+                <div class="aspect-video relative overflow-hidden">
+                    <img src="${banner.imageSrc}" alt="${banner.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="portfolio-overlay absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // 前のバナー
+        document.getElementById('prevBanner').addEventListener('click', function() {
+            currentBannerIndex = (currentBannerIndex - 1 + bannerData.length) % bannerData.length;
+            showBanner(currentBannerIndex);
+        });
+
+        // 次のバナー
+        document.getElementById('nextBanner').addEventListener('click', function() {
+            currentBannerIndex = (currentBannerIndex + 1) % bannerData.length;
+            showBanner(currentBannerIndex);
+        });
+
+        // モーダルを閉じる
+        document.getElementById('closeBannerModal').addEventListener('click', function() {
+            const modal = document.getElementById('bannerModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 背景クリックでモーダルを閉じる
+        document.getElementById('bannerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // ESCキーでモーダルを閉じる
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('bannerModal');
+                if (!modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                const otherModal = document.getElementById('otherModal');
+                if (!otherModal.classList.contains('hidden')) {
+                    otherModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                const dancingVideoModal = document.getElementById('dancingVideoModal');
+                if (!dancingVideoModal.classList.contains('hidden')) {
+                    const video = document.getElementById('modalDancingVideo');
+                    video.pause();
+                    dancingVideoModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+
+    <!-- その他のセクション用モーダル制御用JavaScript -->
+    <script>
+        // その他のセクション用モーダルを開く
+        function openOtherModal(type) {
+            const modal = document.getElementById('otherModal');
+            const modalImage = document.getElementById('modalOtherImage');
+            
+            let imageSrc = '';
+            
+            switch(type) {
+                case 'gabechan':
+                    imageSrc = 'assets/images/other/Gabechan/youtube.webp';
+                    break;
+                case 'ring':
+                    imageSrc = 'assets/images/other/ring/other_slot_img.webp';
+                    break;
+                case 'white_paper':
+                    imageSrc = 'assets/images/other/white_paper/white_paper.webp';
+                    break;
+                case 'rium':
+                    imageSrc = 'assets/images/other/rium/other_rium_img.webp';
+                    break;
+                case 'logo_typography':
+                    imageSrc = 'assets/images/other/logo_typography/logo_type_img.webp';
+                    break;
+                case 'neu':
+                    imageSrc = 'assets/images/other/neu/other_neu_img.webp';
+                    break;
+                case 'ivent':
+                    imageSrc = 'assets/images/other/ivent/other_tgs_img.webp';
+                    break;
+            }
+            
+            modalImage.src = imageSrc;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // その他のセクション用モーダルを閉じる
+        document.getElementById('closeOtherModal').addEventListener('click', function() {
+            const modal = document.getElementById('otherModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 背景クリックでモーダルを閉じる
+        document.getElementById('otherModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Dancing Robots動画モーダルを開く
+        function openDancingVideoModal() {
+            const modal = document.getElementById('dancingVideoModal');
+            const video = document.getElementById('modalDancingVideo');
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // 動画を再生
+            video.play().catch(e => console.log('動画再生エラー:', e));
+        }
+
+        // Dancing Robots動画モーダルを閉じる
+        document.getElementById('closeDancingVideoModal').addEventListener('click', function() {
+            const modal = document.getElementById('dancingVideoModal');
+            const video = document.getElementById('modalDancingVideo');
+            
+            // 動画を一時停止
+            video.pause();
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // 背景クリックで動画モーダルを閉じる
+        document.getElementById('dancingVideoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                const video = document.getElementById('modalDancingVideo');
+                video.pause();
+                this.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Back to Top Button
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            
+            // デバッグ用：ボタンを常に表示
+            console.log('Back to Top button found:', backToTopButton);
+            
+            // スクロール時の表示/非表示制御
+            window.addEventListener('scroll', function() {
+                console.log('Scroll position:', window.pageYOffset);
+                if (window.pageYOffset > 300) {
+                    console.log('Showing button');
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    console.log('Hiding button');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                }
+            });
+            
+            // クリック時のTOPスクロール
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-black text-white rounded-full p-3 shadow-lg transition-all duration-300 hover:bg-gray-800 hover:scale-110 z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+</body>
+</html>
