@@ -1,3 +1,4 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 assets/videos/ultra/*.mp4 filter= diff= merge=
 assets/videos/quality/*.mp4 filter= diff= merge=
+assets/videos/mov/mov/compressed/thum1_mov1_002_Gabee_compressed.mp4 filter= diff= merge=
