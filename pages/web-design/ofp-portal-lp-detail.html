@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stickey - UIデザイン詳細 | Designer Portfolio</title>
+    <title>OFP Japan Portal LP - Webデザイン詳細 | Designer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -149,47 +149,26 @@
             color: var(--foreground);
         }
 
-        /* Transition Pages Grid */
-        .transition-pages-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        /* Tag Styles */
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            border-radius: 0.5rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
-        .transition-page-card {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: all 0.2s;
+        /* Clickable images */
+        .clickable-image {
+            cursor: pointer;
+            transition: transform 0.2s ease;
         }
 
-        .transition-page-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
-        }
-
-        .transition-page-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .transition-page-content {
-            padding: 1rem;
-        }
-
-        .transition-page-title {
-            font-size: 1rem;
-            font-weight: var(--font-weight-medium);
-            margin-bottom: 0.5rem;
-        }
-
-        .transition-page-description {
-            font-size: 0.875rem;
-            color: var(--muted-foreground);
-            line-height: 1.4;
+        .clickable-image:hover {
+            transform: scale(1.02);
         }
 
         /* Modal Styles */
@@ -252,43 +231,17 @@
             opacity: 0.7;
         }
 
-        /* Tag Styles */
-        .tag {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--secondary);
-            color: var(--secondary-foreground);
-            border-radius: 0.5rem;
-            font-size: 0.6875rem;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        
-        /* Clickable images */
-        .clickable-image {
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .clickable-image:hover {
-            transform: scale(1.02);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
-            .transition-pages-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .floating-nav {
                 width: 40px;
                 height: 40px;
             }
-            
+
             .floating-nav.prev {
                 left: 10px;
             }
-            
+
             .floating-nav.next {
                 right: 10px;
             }
@@ -307,10 +260,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-4">
-                    <a href="../../index.html#ui-design" class="text-muted-foreground hover:text-foreground transition-colors">
+                    <a href="../../index.html#web-design" class="text-muted-foreground hover:text-foreground transition-colors">
                         ← 戻る
                     </a>
-                    <h1 class="text-xl font-medium">Stickey</h1>
+                    <h1 class="text-xl font-medium">OFP Japan Portal LP</h1>
                 </div>
                 <nav class="hidden md:flex space-x-8">
                     <a href="../../index.html#about" class="text-muted-foreground hover:text-foreground transition-colors">About</a>
@@ -326,16 +279,15 @@
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Project Header -->
         <div class="mb-12">
-            <h1 class="text-4xl font-bold mb-4">Stickey</h1>
+            <h1 class="text-4xl font-bold mb-4">OFP Japan Portal LP</h1>
             <p class="text-xl text-muted-foreground leading-relaxed">
-                モバイルソーシャルアプリのUIデザイン。ユーザーが簡単に写真や動画を共有でき、
-                直感的な操作で楽しいコミュニケーションを実現するアプリとして設計しました。
+                日本の森林再生を支えるデジタルカーボンクレジット基盤「OFP Japan Portal」のランディングページをデザインしました。「森を育てる・オフセットする・検証する」という3つの参加方法を軸に、サービスの仕組みと信頼性が伝わる構成を設計。森林を想起させるグリーンを基調にまとめました。
             </p>
         </div>
 
-        <!-- Main Project Image -->
+        <!-- Main Project Image (Banner) -->
         <div class="image-container mb-12">
-            <img src="../../assets/images/game-design/thum1_ui_002_Stickey.webp" alt="Stickey UIデザイン" class="w-full h-auto rounded-lg shadow-2xl">
+            <img src="../../assets/202608/images/web_design/OFP_portal_LP/thum1_web_OFP_LP.webp" alt="OFP Japan Portal LP メインビジュアル" class="w-full h-auto rounded-lg shadow-2xl clickable-image" onclick="openModal(this.src, this.alt)">
         </div>
 
         <!-- Technologies & Tools -->
@@ -348,18 +300,16 @@
                             <h3 class="font-medium mb-3 text-foreground">デザインツール</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="tag">Figma</span>
-                                <span class="tag">Illustrator</span>
                             </div>
                         </div>
-                        
+
                         <!-- Production Scope -->
                         <div class="flex flex-col items-start">
                             <h3 class="font-medium mb-3 text-foreground">制作範囲</h3>
                             <div class="space-y-2">
-                                <div class="flex gap-2">
-                                    <span class="tag">UIデザイン</span>
-                                    <span class="tag">プロトタイピング</span>
-                                    <span class="tag">デザインシステム</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag">LPデザイン</span>
+                                    <span class="tag">構成設計</span>
                                 </div>
                             </div>
                         </div>
@@ -368,40 +318,19 @@
             </div>
         </div>
 
-        <!-- Figma Prototype -->
+        <!-- LP Design Section -->
         <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6">プロトタイプ</h2>
-            <div class="card" style="max-width: 390px; margin: 0 auto;">
-                <div class="card-content p-0">
-                    <iframe
-                        style="border: none;"
-                        width="390"
-                        height="844"
-                        src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/pqa8uEcucRPqAW6xXRSAut/01_Stickey_Wireframe?node-id=4-11411&t=WlQXQ9M9cLSEfcqq-1">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- UI Design Images Section -->
-        <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6">UIデザイン画像</h2>
+            <h2 class="text-2xl font-bold mb-6">LPデザイン</h2>
             <div class="grid grid-cols-1 gap-6">
-                <!-- UI Design Image 1 -->
                 <div class="image-container">
-                    <img src="../../assets/images/ui-design/stickey/UI_design_stickey_01.webp" alt="Stickey UI Design 1" class="w-full h-auto rounded-lg shadow-lg" ">
-                </div>
-
-                <!-- UI Design Image 2 -->
-                <div class="image-container">
-                    <img src="../../assets/images/ui-design/stickey/UI_design_stickey_02.webp" alt="Stickey UI Design 2" class="w-full h-auto rounded-lg shadow-lg" ">
+                    <img src="../../assets/202608/images/web_design/OFP_portal_LP/web_OFP_portal_LP.webp" alt="OFP Japan Portal LP 全体デザイン" class="w-full h-auto rounded-lg shadow-lg clickable-image" onclick="openModal(this.src, this.alt, true)">
                 </div>
             </div>
         </div>
 
         <!-- Home Button -->
         <div class="flex justify-center pt-8 border-t border-border">
-            <button onclick="window.location.href='../../index.html#ui-design'" class="inline-flex items-center px-6 py-3 bg-white text-black border-2 border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
+            <button onclick="window.location.href='../../index.html#web-design'" class="inline-flex items-center px-6 py-3 bg-white text-black border-2 border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                 </svg>
@@ -411,13 +340,13 @@
     </main>
 
     <!-- Floating Navigation Buttons -->
-    <button class="floating-nav prev" onclick="window.location.href='ofp-portal-ui-detail.html'">
+    <button class="floating-nav prev" onclick="window.location.href='aibo-detail.html'">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
     </button>
 
-    <button class="floating-nav next" onclick="window.location.href='gabee-town-ui-detail.html'">
+    <button class="floating-nav next" onclick="window.location.href='../../index.html#web-design'">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -436,12 +365,11 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const modalContent = modalImg.parentElement;
-            
+
             modal.classList.add('active');
-            modalImg.src=" = imageSrc;"
+            modalImg.src = imageSrc;
             modalImg.alt = imageAlt;
-            
-            // Add or remove large class based on parameter
+
             if (isLarge) {
                 modalContent.classList.add('large');
                 modalImg.classList.add('large');
@@ -449,8 +377,7 @@
                 modalContent.classList.remove('large');
                 modalImg.classList.remove('large');
             }
-            
-            // Prevent body scroll when modal is open
+
             document.body.style.overflow = 'hidden';
         }
 
@@ -458,16 +385,14 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const modalContent = modalImg.parentElement;
-            
+
             modal.classList.remove('active');
             modalContent.classList.remove('large');
             modalImg.classList.remove('large');
-            
-            // Restore body scroll
+
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeModal();

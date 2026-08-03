@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stickey - UIデザイン詳細 | Designer Portfolio</title>
+    <title>中学英語 話すこと - UIデザイン詳細 | Designer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -149,47 +149,26 @@
             color: var(--foreground);
         }
 
-        /* Transition Pages Grid */
-        .transition-pages-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        /* Tag Styles */
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            border-radius: 0.5rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
-        .transition-page-card {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: all 0.2s;
+        /* Clickable images */
+        .clickable-image {
+            cursor: pointer;
+            transition: transform 0.2s ease;
         }
 
-        .transition-page-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
-        }
-
-        .transition-page-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .transition-page-content {
-            padding: 1rem;
-        }
-
-        .transition-page-title {
-            font-size: 1rem;
-            font-weight: var(--font-weight-medium);
-            margin-bottom: 0.5rem;
-        }
-
-        .transition-page-description {
-            font-size: 0.875rem;
-            color: var(--muted-foreground);
-            line-height: 1.4;
+        .clickable-image:hover {
+            transform: scale(1.02);
         }
 
         /* Modal Styles */
@@ -252,43 +231,17 @@
             opacity: 0.7;
         }
 
-        /* Tag Styles */
-        .tag {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--secondary);
-            color: var(--secondary-foreground);
-            border-radius: 0.5rem;
-            font-size: 0.6875rem;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        
-        /* Clickable images */
-        .clickable-image {
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .clickable-image:hover {
-            transform: scale(1.02);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
-            .transition-pages-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .floating-nav {
                 width: 40px;
                 height: 40px;
             }
-            
+
             .floating-nav.prev {
                 left: 10px;
             }
-            
+
             .floating-nav.next {
                 right: 10px;
             }
@@ -310,7 +263,7 @@
                     <a href="../../index.html#ui-design" class="text-muted-foreground hover:text-foreground transition-colors">
                         ← 戻る
                     </a>
-                    <h1 class="text-xl font-medium">Stickey</h1>
+                    <h1 class="text-xl font-medium">中学英語 話すこと</h1>
                 </div>
                 <nav class="hidden md:flex space-x-8">
                     <a href="../../index.html#about" class="text-muted-foreground hover:text-foreground transition-colors">About</a>
@@ -326,16 +279,15 @@
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Project Header -->
         <div class="mb-12">
-            <h1 class="text-4xl font-bold mb-4">Stickey</h1>
+            <h1 class="text-4xl font-bold mb-4">中学英語 話すこと</h1>
             <p class="text-xl text-muted-foreground leading-relaxed">
-                モバイルソーシャルアプリのUIデザイン。ユーザーが簡単に写真や動画を共有でき、
-                直感的な操作で楽しいコミュニケーションを実現するアプリとして設計しました。
+                東京都の英語学習ポータル「TOKYO ENGLISH CHANNEL」に関わる、中学生向けAIスピーキングレッスン教材のアプリUIデザインです。録音した発話をAIが評価し、フィードバックを返す学習フローをスマートフォン・PCの両画面で設計。親しみやすいポップなトーンと、落ち着いたシックなトーンの2パターンを制作しました。本作はコンペ参加時の提案作品です。
             </p>
         </div>
 
-        <!-- Main Project Image -->
+        <!-- Main Project Image (Banner) -->
         <div class="image-container mb-12">
-            <img src="../../assets/images/game-design/thum1_ui_002_Stickey.webp" alt="Stickey UIデザイン" class="w-full h-auto rounded-lg shadow-2xl">
+            <img src="../../assets/202608/images/UI_design/Eigo_speaking/thum1_ui_008_Eigo_speaking.webp" alt="中学英語 話すこと メインビジュアル" class="w-full h-auto rounded-lg shadow-2xl clickable-image" onclick="openModal(this.src, this.alt)">
         </div>
 
         <!-- Technologies & Tools -->
@@ -348,18 +300,17 @@
                             <h3 class="font-medium mb-3 text-foreground">デザインツール</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="tag">Figma</span>
-                                <span class="tag">Illustrator</span>
                             </div>
                         </div>
-                        
+
                         <!-- Production Scope -->
                         <div class="flex flex-col items-start">
                             <h3 class="font-medium mb-3 text-foreground">制作範囲</h3>
                             <div class="space-y-2">
-                                <div class="flex gap-2">
-                                    <span class="tag">UIデザイン</span>
-                                    <span class="tag">プロトタイピング</span>
-                                    <span class="tag">デザインシステム</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag">UI/UXデザイン</span>
+                                    <span class="tag">画面設計</span>
+                                    <span class="tag">2パターン提案</span>
                                 </div>
                             </div>
                         </div>
@@ -368,33 +319,12 @@
             </div>
         </div>
 
-        <!-- Figma Prototype -->
+        <!-- UI Design Section -->
         <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6">プロトタイプ</h2>
-            <div class="card" style="max-width: 390px; margin: 0 auto;">
-                <div class="card-content p-0">
-                    <iframe
-                        style="border: none;"
-                        width="390"
-                        height="844"
-                        src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/pqa8uEcucRPqAW6xXRSAut/01_Stickey_Wireframe?node-id=4-11411&t=WlQXQ9M9cLSEfcqq-1">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- UI Design Images Section -->
-        <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6">UIデザイン画像</h2>
+            <h2 class="text-2xl font-bold mb-6">UIデザイン（2パターン）</h2>
             <div class="grid grid-cols-1 gap-6">
-                <!-- UI Design Image 1 -->
                 <div class="image-container">
-                    <img src="../../assets/images/ui-design/stickey/UI_design_stickey_01.webp" alt="Stickey UI Design 1" class="w-full h-auto rounded-lg shadow-lg" ">
-                </div>
-
-                <!-- UI Design Image 2 -->
-                <div class="image-container">
-                    <img src="../../assets/images/ui-design/stickey/UI_design_stickey_02.webp" alt="Stickey UI Design 2" class="w-full h-auto rounded-lg shadow-lg" ">
+                    <img src="../../assets/202608/images/UI_design/Eigo_speaking/UI_eigo_speaking.webp" alt="中学英語 話すこと UIデザイン一覧 - ポップとシックの2パターン" class="w-full h-auto rounded-lg shadow-lg clickable-image" onclick="openModal(this.src, this.alt, true)">
                 </div>
             </div>
         </div>
@@ -411,13 +341,13 @@
     </main>
 
     <!-- Floating Navigation Buttons -->
-    <button class="floating-nav prev" onclick="window.location.href='ofp-portal-ui-detail.html'">
+    <button class="floating-nav prev" onclick="window.location.href='dopa-ui-detail.html'">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
     </button>
 
-    <button class="floating-nav next" onclick="window.location.href='gabee-town-ui-detail.html'">
+    <button class="floating-nav next" onclick="window.location.href='ofp-portal-ui-detail.html'">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -436,12 +366,11 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const modalContent = modalImg.parentElement;
-            
+
             modal.classList.add('active');
-            modalImg.src=" = imageSrc;"
+            modalImg.src = imageSrc;
             modalImg.alt = imageAlt;
-            
-            // Add or remove large class based on parameter
+
             if (isLarge) {
                 modalContent.classList.add('large');
                 modalImg.classList.add('large');
@@ -449,8 +378,7 @@
                 modalContent.classList.remove('large');
                 modalImg.classList.remove('large');
             }
-            
-            // Prevent body scroll when modal is open
+
             document.body.style.overflow = 'hidden';
         }
 
@@ -458,16 +386,14 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const modalContent = modalImg.parentElement;
-            
+
             modal.classList.remove('active');
             modalContent.classList.remove('large');
             modalImg.classList.remove('large');
-            
-            // Restore body scroll
+
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeModal();
